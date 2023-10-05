@@ -1,0 +1,123 @@
+@font-face {
+    font-family: 'Jura';
+    font-weight: 100 900;
+    src: url('/fonts/Jura.ttf');
+}
+
+@font-face {
+    font-family: 'Tektur';
+    font-weight: 100 900;
+    src: url('/fonts/Tektur.ttf');
+}
+
+:root {
+    --size-small: 1rem;
+    --size-normal: 2rem;
+    --size-large: 3rem;
+
+    --transition: 200ms ease;
+
+    --color: #e2e2e2;
+    --color-darker: #969696;
+    --color-surface: #333;
+    --color-link: #24a7ff;
+
+    --font-text: Jura, sans-serif;
+    --font-brand: Tektur, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-surface);
+    color: var(--color);
+    font-family: var(--font-text);
+    font-size: 1.3rem;
+    line-height: 1.6;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+}
+
+h1 {
+    margin-bottom: var(--size-large);
+    font-size: 35px;
+    line-height: 40px;
+    font-weight: 600;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 27px;
+    line-height: 135%;
+    font-weight: 700;
+}
+
+h3 {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 21px;
+    line-height: 30px;
+    font-weight: 700;
+}
+
+h4 {
+    margin-top: 20px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 700;
+}
+
+p {
+    margin-top: 0px;
+    margin-bottom: 20px;
+    font-weight: 300;
+}
+
+a {
+    color: var(--color-link);
+    text-decoration: none;
+}
+
+button {
+    font-family: var(--font-text);
+}
+
+ul {
+    margin-top: 0px;
+    margin-bottom: 20px;
+    padding-left: 40px;
+}
+
+ol {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    padding-left: 40px;
+}
+
+li {
+    font-weight: 300;
+}
+
+img {
+    display: inline-block;
+    max-width: 100%;
+}
+
+blockquote {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    border-left: 5px solid var(--color);
+    font-size: 18px;
+    line-height: 140%;
+    font-weight: 400;
+}
