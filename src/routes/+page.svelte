@@ -21,7 +21,7 @@
 
 {#if data.hasMore}
     <section class="more">
-        <LinkButton url="/blog/1" label={config.labels.morePosts} large />
+        <LinkButton url={`${config.routes.blog}/1`} label={config.labels.morePosts} large />
     </section>
 {/if}
 

@@ -1,3 +1,5 @@
+import { base } from '$app/paths'
+
 export default {
     posts: {
         homepage: 3,
@@ -10,9 +12,11 @@ export default {
         newestPosts: 'Novější články',
     },
     routes: {
-        about: '/about',
-        contact: '/contact',
-        blog: '/blog',
-        tags: '/blog/tags',
+        basePath: base,
+        home: `${base}/`,
+        about: `${base}/about`,
+        contact: `${base}/contact`,
+        blog: `${base}/blog`,
+        tags: `${base}/blog/tags`,
     }
 }

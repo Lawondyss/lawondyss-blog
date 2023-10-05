@@ -1,4 +1,9 @@
-<img src="/me.jpg" alt="Láďa Vondráček" />
+<script lang="ts">
+    import config from '$config'
+</script>
+
+<img src={`${config.routes.basePath}/me.jpg`} alt="Láďa Vondráček" />
+
 <slot />
 
 <style>

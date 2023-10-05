@@ -1,11 +1,12 @@
 <script lang="ts">
+    import config from '$config'
     import Navigate from '$molecules/Navigate.svelte'
     import SocialLinks from '$molecules/SocialLinks.svelte'
     import ToTopButton from '$atoms/ToTopButton.svelte'
 </script>
 
 <header>
-    <a href="/" class="brand">Lawondyss</a>
+    <a href={config.routes.home} class="brand">Lawondyss</a>
     <Navigate />
 </header>
 
