@@ -1,10 +1,16 @@
 <script lang="ts">
-    import '$css/app.css'
-    import '$css/code-highlight.css'
+  import type {Snippet} from 'svelte'
+  import '$css/app.css'
+  import '$css/code-highlight.css'
+  import Page from '$composites/Page.svelte'
 
-    import Page from '$composites/Page.svelte'
+  type Props = {
+    children: Snippet,
+  }
+
+  let {children}: Props = $props()
 </script>
 
 <Page>
-    <slot/>
+  {@render children()}
 </Page>

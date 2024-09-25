@@ -1,178 +1,159 @@
-import type { Post, File } from '$types'
-import { postUrl, webalized } from '$utils'
+import type {File, Post} from '$types'
+import {postUrl, webalized} from '$utils'
 
+const markdowns: File[] = []
 
-async function getFiles(): Promise<File[]> {
-    const files = []
-
-    const paths = import.meta.glob('/src/posts/*/*.md', { eager: true })
+function getMarkdowns(): File[] {
+  if (markdowns.length === 0) {
+    const paths = import.meta.glob('/src/posts/*/*.md', {eager: true})
 
     for (const path in paths) {
-        const file = paths[path]
-        const [, , , year, slug] = path.replace('.md', '').split('/')
-        const meta = file.metadata as Omit<Post, 'url' | 'before' | 'after'>
+      // @ts-ignore because paths[path] is import module
+      const meta = paths[path].metadata as Omit<Post, 'titleImage' | 'url' | 'before' | 'after'>
+      const [year, slug] = path.replace('.md', '').split('/').slice(-2)
 
-        files.push({
-            ...meta,
-            date: meta.date.substring(0, 10),
-            year,
-            slug,
-        })
+      markdowns.push({
+        ...meta,
+        date: meta.date.substring(0, 10),
+        year,
+        slug,
+      })
     }
+  }
 
-    return files
+  return markdowns
 }
 
 
-function fileAsPost(file: File): Post {
-    return {
-        title: file.title,
-        perex: file.perex,
-        date: file.date,
-        tags: file.tags,
-        url: postUrl(file.year, file.slug),
-        before: null,
-        after: null,
+const images: Record<string, string> = {}
+
+function getImages(): Record<string, string> {
+  if (Object.keys(images).length === 0) {
+    const paths = import.meta.glob('/src/posts/*/*.jpg', {eager: true})
+
+    for (const path in paths) {
+      const filename = path.split('/').at(-1)
+      // @ts-ignore
+      images[filename] = paths[path]?.default
     }
+  }
+
+  return images
 }
 
 
-export async function getMeta(year: string, slug: string): Promise<Post | null> {
-    const posts: Post[] = await getPosts()
+async function fileAsPost(file: File): Promise<Post> {
+  const imageFile = `${file.slug}-title.jpg`
+  const titleImage: string | null = getImages()[imageFile] ?? null
 
-    return posts.filter((p: Post) => p.url === postUrl(year, slug))[0] ?? null
+  return {
+    titleImage,
+    title: file.title,
+    perex: file.perex,
+    date: file.date,
+    tags: file.tags ?? [],
+    url: postUrl(file.year, file.slug),
+    before: null,
+    after: null,
+  }
+}
+
+function sortByDates(posts: Post[]): Post[] {
+  return posts.sort((first: Post, second: Post) =>
+    new Date(second.date).getTime() - new Date(first.date).getTime()
+  )
 }
 
 
-export async function getPosts(): Promise<Post[]> {
-    const posts: Post[] = []
+export async function getPost(year: string, slug: string): Promise<Post | null> {
+  const posts: Post[] = await getPosts()
 
-    const files = await getFiles()
+  return posts.filter((p: Post) => p.url === postUrl(year, slug)).at(0) ?? null
+}
+
+const posts: Post[] = []
+
+export async function getPosts(count: number | null = null): Promise<Post[]> {
+  if (posts.length === 0) {
+    const unsorted: Post[] = []
+    const files: File[] = getMarkdowns()
 
     for (const file of files) {
-        posts.push(fileAsPost(file))
+      unsorted.push(await fileAsPost(file))
     }
 
-    const sorted = posts.sort((first, second) =>
-        new Date(second.date).getTime() - new Date(first.date).getTime()
-    )
-
+    const sorted: Post[] = sortByDates(unsorted)
     let lastPost: Post | null = null
 
     sorted.forEach((post: Post) => {
-        if (lastPost) {
-            post.after = { url: lastPost.url, label: lastPost.title }
-            lastPost.before = { url: post.url, label: post.title }
-        }
+      if (lastPost) {
+        post.after = {url: lastPost.url, label: lastPost.title}
+        lastPost.before = {url: post.url, label: post.title}
+      }
 
-        lastPost = post
+      lastPost = post
+      posts.push(post)
     })
+  }
 
-    return sorted
+  return count ? posts.slice(0, count) : posts
 }
 
 
-export async function getPostsByYear(year: string): Promise<Post[]> {
-    const posts: Post[] = []
+export async function getPostsByYear(year: string, count: number | null = null): Promise<Post[]> {
+  return (await getPosts(count)).filter((post: Post) => post.date.startsWith(year))
+}
 
-    const files = await getFiles()
-    const forYear = files.filter((f: File) => f.year === year)
 
-    for (const file of forYear) {
-        posts.push(fileAsPost(file))
-    }
+export async function getPostsByUrlTag(urlTag: string, count: number | null = null): Promise<Post[]> {
+  const tag: string | null = urlTagAsOrigin(urlTag)
 
-    const sorted = posts.sort((first, second) =>
-        new Date(second.date).getTime() - new Date(first.date).getTime()
-    )
+  return (await getPosts(count)).filter((post: Post) => post.tags.includes(tag ?? ''))
+}
 
-    let lastPost: Post | null = null
 
-    sorted.forEach((post: Post) => {
-        if (lastPost) {
-            post.after = { url: lastPost.url, label: lastPost.title }
-            lastPost.before = { url: post.url, label: post.title }
-        }
+export function getYears(): string[] {
+  const years: Set<string> = new Set
 
-        lastPost = post
+  const files: File[] = getMarkdowns()
+  for (const file of files) {
+    years.add(file.year)
+  }
+
+  return [...years]
+}
+
+
+export function getTags(): { tag: string, count: number }[] {
+  const tags: { tag: string, count: number }[] = []
+  const counts: Record<string, number> = {}
+
+  const files: File[] = getMarkdowns()
+  for (const file of files) {
+    file.tags.forEach((t: string) => {
+      counts[t] = counts[t] !== undefined ? (counts[t] + 1) : 1
     })
+  }
 
-    return sorted
+  const sorted = Object.keys(counts).sort()
+
+
+  for (const tag of sorted) {
+    tags.push({tag, count: counts[tag]})
+  }
+
+  return tags
 }
 
 
-export async function getPostsByUrlTag(urlTag: string): Promise<Post[]> {
-    const posts: Post[] = []
+export function urlTagAsOrigin(urlTag: string): string | null {
+  const files: File[] = getMarkdowns()
 
-    const tag = await urlTagAsOrigin(urlTag)
-    const files = await getFiles()
-    const forTag = files.filter((f: File) => f.tags.includes(tag ?? ''))
-
-    for (const file of forTag) {
-        posts.push(fileAsPost(file))
+  for (const file of files) {
+    for (const tag of file.tags) {
+      if (webalized(tag) === urlTag) return tag
     }
+  }
 
-    const sorted = posts.sort((first, second) =>
-        new Date(second.date).getTime() - new Date(first.date).getTime()
-    )
-
-    let lastPost: Post | null = null
-
-    sorted.forEach((post: Post) => {
-        if (lastPost) {
-            post.after = { url: lastPost.url, label: lastPost.title }
-            lastPost.before = { url: post.url, label: post.title }
-        }
-
-        lastPost = post
-    })
-
-    return sorted
-}
-
-
-export async function getYears(): Promise<string[]> {
-    const years: Set<string> = new Set
-
-    const files = await getFiles()
-    for (const file of files) {
-        years.add(file.year)
-    }
-
-    return [...years]
-}
-
-
-export async function getTags(): Promise<{ tag: string, count: number }[]> {
-    const tags: { tag: string, count: number }[] = []
-    const counts: Record<string, number> = {}
-
-    const files = await getFiles()
-    for (const file of files) {
-        file.tags.forEach((t: string) => {
-            counts[t] = counts[t] !== undefined ? (counts[t] + 1) : 1
-        })
-    }
-
-    const sorted = Object.keys(counts).sort()
-
-
-    for (const tag of sorted) {
-        tags.push({ tag, count: counts[tag] })
-    }
-
-    return tags
-}
-
-
-export async function urlTagAsOrigin(urlTag: string): Promise<string | null> {
-    const files = await getFiles()
-
-    for (const file of files) {
-        for (const tag of file.tags) {
-            if (webalized(tag) === urlTag) return tag
-        }
-    }
-
-    return null
+  return null
 }

@@ -1,73 +1,81 @@
 <script lang="ts">
-    import config from '$config'
-    import Navigate from '$molecules/Navigate.svelte'
-    import SocialLinks from '$molecules/SocialLinks.svelte'
-    import ToTopButton from '$atoms/ToTopButton.svelte'
+  import type {Snippet} from 'svelte'
+  import config from '$config'
+  import Navigate from '$molecules/Navigate.svelte'
+  import SocialLinks from '$molecules/SocialLinks.svelte'
+  import ToTopButton from '$atoms/ToTopButton.svelte'
+
+  type Props = {
+    children: Snippet,
+  }
+
+  let {children}: Props = $props()
 </script>
 
-<header>
-    <a href={config.routes.home} class="brand">Lawondyss</a>
-    <Navigate />
-</header>
+<section>
+  <header>
+    <a class="brand" href={config.routes.home}>Lawondyss</a>
+    <Navigate/>
+  </header>
 
-<main>
-    <slot />
-</main>
+  <main>
+    {@render children()}
+  </main>
 
-<footer>
-    <SocialLinks />
-    <ToTopButton />
-</footer>
+  <footer>
+    <SocialLinks/>
+    <ToTopButton/>
+  </footer>
+</section>
 
 <style>
-    header, main, footer {
-        width: min(940px, 100%);
-        margin-inline: auto;
-        padding: var(--size-small);
-    }
+  section {
+    width: min(940px, 100cqw);
+    margin-inline: auto;
+    padding: var(--size-l) var(--size-s);
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-l);
+    background-color: var(--background);
+  }
 
-    header {
-        padding-block: var(--size-small);
-        margin-bottom: var(--size-normal);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: var(--size-small);
-    }
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--size-s);
 
-    main {
-        flex: 1;
-    }
-
-    footer {
-        padding-block: var(--size-large);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    @media screen and (min-width: 600px) {
-        header {
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: baseline;
-            gap: 0;
-        }
-
-        footer {
-            padding-top: var(--size-large);
-        }
-    }
 
     .brand {
-        display: block;
-        color: var(--color);
-        font-family: var(--font-brand);
-        font-size: 4rem;
-        line-height: 100%;
-        font-weight: 700;
-        letter-spacing: -3px;
-        text-decoration: none;
-        -webkit-text-stroke: 1px var(--color-darker);
+      display: block;
+      color: var(--text);
+      font-family: var(--font-brand);
+      font-size: 4rem;
+      line-height: 100%;
+      font-weight: 700;
+      letter-spacing: -3px;
+      text-decoration: none;
+      -webkit-text-stroke: 1px var(--text-darker);
     }
+  }
+
+  main {
+    flex: 1;
+  }
+
+  footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+
+  @media (width >= 600px) {
+    header {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0;
+    }
+  }
 </style>

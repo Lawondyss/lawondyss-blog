@@ -1,11 +1,11 @@
 <script lang="ts">
-    import type { PageData } from '../../../../../.svelte-kit/types/src/routes'
-    import Posts from '$composites/Posts.svelte'
-    import FooterLinks from '$molecules/FooterLinks.svelte'
+  import type {PageData} from './$types'
+  import Posts from '$composites/Posts.svelte'
+  import FooterLinks from '$molecules/FooterLinks.svelte'
 
-    export let data: PageData
+  let {data}: { data:PageData } = $props()
 </script>
 
-<Posts metas={data.metas} />
+<Posts metas={data.metas}/>
 
-<FooterLinks leftLink={data.olderLink} rightLink={data.newestLink} tag='section' />
+<FooterLinks leftLink={data.olderLink} rightLink={data.newestLink} tag='section'/>

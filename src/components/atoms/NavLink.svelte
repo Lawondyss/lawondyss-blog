@@ -1,36 +1,43 @@
 <script lang="ts">
-    import { page } from '$app/stores'
+  import {page} from '$app/stores'
 
-    export let url: string
-    export let label: string
-    export let check: string = url
+  type Props = {
+    url: string,
+    label: string,
+    check?: string | undefined,
+  }
 
-    let current = false
+  let {
+    url,
+    label,
+    check = url,
+  }: Props = $props()
 
-    page.subscribe(({ route }) => {
-        current = route.id?.includes(check) ?? false
-    })
+  let current = $state(false)
 
+  page.subscribe(({route}) => {
+    current = route.id?.includes(check) ?? false
+  })
 </script>
 
-<a href={url} class:current>{label}</a>
+<a class:current href={url}>{label}</a>
 
 <style>
-    a {
-        display: inline-block;
-        padding-inline: .25rem;
-        color: var(--color-darker);
-        font-size: 1.25rem;
-        line-height: 1.5rem;
-        font-weight: 400;
-        letter-spacing: -1px;
-        text-decoration: none;
-        white-space: nowrap;
-        transition: color var(--transition);
-    }
+  a {
+    display: inline-block;
+    padding-inline: .25rem;
+    color: var(--text-darker);
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+    font-weight: 400;
+    letter-spacing: -1px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color var(--transition);
+  }
 
-    a:hover,
-    a.current {
-        color: var(--color);
-    }
+  a:hover,
+  a.current {
+    color: var(--text);
+  }
 </style>

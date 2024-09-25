@@ -1,24 +1,28 @@
 <script lang="ts">
-    import { tagUrl } from '$utils'
+  import {tagUrl} from '$utils'
 
-    export let tag: string
+  type Props = {
+    tag: string,
+  }
 
-    $: href = tagUrl(tag)
+  let {tag}: Props = $props()
+
+  let href = $derived.by(() => tagUrl(tag))
 </script>
 
-<a {href} >{tag}</a>
+<a {href}>{tag}</a>
 
 <style>
-    a {
-        color: var(--color-darker);
-        transition: color var(--transition);
-    }
+  a {
+    color: var(--text-darker);
+    transition: color var(--transition);
+  }
 
-    a:hover {
-        color: var(--color);
-    }
+  a:hover {
+    color: var(--text);
+  }
 
-    a:not(:last-of-type)::after {
-        content: ', ';
-    }
+  a:not(:last-of-type)::after {
+    content: ', ';
+  }
 </style>

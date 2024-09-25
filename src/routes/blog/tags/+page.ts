@@ -1,8 +1,8 @@
-import type { PageLoad } from './$types'
-import { getTags } from '$data'
+import type {PageLoad} from './$types'
+import {getTags} from '$data'
 
-export const load = (async () => {
-    return {
-        list: await getTags(),
-    }
+export const load = (() => {
+  return {
+    list: getTags(),
+  }
 }) satisfies PageLoad

@@ -1,66 +1,98 @@
 <script lang="ts">
-    import type { Link } from '$types'
-    import { dateFormat } from '$utils'
-    import Tags from '$molecules/Tags.svelte'
-    import FooterLinks from '$molecules/FooterLinks.svelte'
+  import type {Snippet} from 'svelte'
+  import type {Link} from '$types'
+  import {dateFormat} from '$utils'
+  import Tags from '$molecules/Tags.svelte'
+  import FooterLinks from '$molecules/FooterLinks.svelte'
+  import Image from "$atoms/Image.svelte";
 
-    export let title: string
-    export let perex: string
-    export let date: string
-    export let tags: string[]
-    export let url: string
-    export let before: Link | null
-    export let after: Link | null
+  type Props = {
+    children: Snippet,
+    title: string,
+    perex: string,
+    date: string,
+    tags: string[],
+    url: string,
+    titleImage: string | null,
+    before: Link | null,
+    after: Link | null,
+  }
 
-    console.log(url)
+  let {
+    children,
+    title,
+    perex,
+    date,
+    tags,
+    url,
+    titleImage,
+    before,
+    after,
+  }: Props = $props()
+  console.log({
+    children,
+    title,
+    perex,
+    date,
+    tags,
+    url,
+    titleImage,
+    before,
+    after,
+  })
 </script>
 
 
 <article>
-    <header>
-        <h1>{title}</h1>
-        <section class="info">
-            <div class="date">{dateFormat(date)}</div>
-            <hr>
-            <Tags {tags} />
-        </section>
-    </header>
-    <section class="perex">{perex}</section>
-    <section class="content"><slot /></section>
-    <FooterLinks leftLink={before} rightLink={after} />
+  <header>
+    <h1>{@html title}</h1>
+    {#if titleImage}<Image src={titleImage} {title} />{/if}
+    <section class="info">
+      <div class="date">{dateFormat(date)}</div>
+      <hr>
+      <Tags {tags}/>
+    </section>
+  </header>
+  <section class="perex">{perex}</section>
+  <section class="content">{@render children()}</section>
+  <FooterLinks leftLink={before} rightLink={after}/>
 </article>
 
 <style>
-    article {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-        min-height: 100%;
-    }
+  article {
+    display: grid;
+    gap: var(--size-l);
+    min-height: 100%;
+  }
 
-    .info {
-        display: flex;
-        gap: var(--size-small);
-        color: var(--color-darker);
-        font-size: .8rem;
-        line-height: 125%;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-    }
+  header {
+    display: grid;
+    gap: var(--size-m);
+  }
 
-    .info hr {
-        display: block;
-        width: 1px;
-        border: none;
-        border-left: 1px solid var(--color-darker);
-    }
+  .info {
+    display: flex;
+    gap: var(--size-s);
+    color: var(--text-darker);
+    font-size: .8rem;
+    line-height: 125%;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
 
-    .perex {
-        font-size: 1.15em;
-        font-weight: 300;
-    }
+  .info hr {
+    display: block;
+    width: 1px;
+    border: none;
+    border-left: 1px solid var(--text-darker);
+  }
 
-    .content {
-        flex: 1;
-    }
+  .perex {
+    font-size: var(--size-l);
+    line-height: 1.2;
+  }
+
+  .content {
+    flex: 1;
+  }
 </style>

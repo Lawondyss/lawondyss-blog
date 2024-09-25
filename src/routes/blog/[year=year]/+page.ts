@@ -1,22 +1,22 @@
-import type { PageLoad, EntryGenerator } from './$types'
-import { getYears, getPostsByYear } from '$data'
+import type {EntryGenerator, PageLoad} from './$types'
+import {getPostsByYear, getYears} from '$data'
 
-export const entries: EntryGenerator = async () => {
-    const posibilities: { year: string }[] = []
-    const years = await getYears()
+export const entries: EntryGenerator = () => {
+  const possibilities: { year: string }[] = []
+  const years = getYears()
 
-    for (let year of years) {
-        posibilities.push({ year })
-    }
+  for (let year of years) {
+    possibilities.push({year})
+  }
 
-    return posibilities
+  return possibilities
 }
 
-export const load = (async ({ params }) => {
-    const metas = await getPostsByYear(params.year)
+export const load = (async ({params}) => {
+  const metas = await getPostsByYear(params.year)
 
-    return {
-        metas,
-        year: params.year,
-    }
+  return {
+    metas,
+    year: params.year,
+  }
 }) satisfies PageLoad

@@ -11,19 +11,26 @@
 }
 
 :root {
-    --size-small: 1rem;
-    --size-normal: 2rem;
-    --size-large: 3rem;
+    --size-xxs: .75rem;
+    --size-xs: .85rem;
+    --size-s: 1rem;
+    --size-m: 1.5rem;
+    --size-l: 2rem;
+    --size-xl: 3rem;
 
     --transition: 200ms ease;
 
-    --color: #e2e2e2;
-    --color-darker: #969696;
-    --color-surface: #333;
-    --color-link: #24a7ff;
+    --text: #e8efdb;
+    --text-darker: oklch(from var(--text) calc(l - .25) c h);
+    --surface: #1a272d;
+    --background: oklch(from var(--surface) calc(l + .05) c h);
+    --link: #24a7ff;
 
-    --font-text: Jura, sans-serif;
-    --font-brand: Tektur, sans-serif;
+    --font-text: Jura, system-ui;
+    --font-brand: Tektur, system-ui;
+
+    --bold: 900;
+    --semibold: 700;
 }
 
 * {
@@ -33,10 +40,10 @@
 }
 
 body {
-    background-color: var(--color-surface);
-    color: var(--color);
+    background-color: var(--surface);
+    color: var(--text);
     font-family: var(--font-text);
-    font-size: 1.3rem;
+    font-size: var(--size-m);
     line-height: 1.6;
     min-height: 100dvh;
     display: flex;
@@ -44,63 +51,62 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
+    --coef: 1;
+    font-size: calc(1rem * var(--coef));
+    font-weight: var(--semibold);
     text-wrap: balance;
+    line-height: 1.2;
+    letter-spacing: -3px;
 }
 
 h1 {
-    margin-bottom: var(--size-large);
-    font-size: 35px;
-    line-height: 40px;
-    font-weight: 600;
+    --coef: 3;
+    font-weight: var(--bold);
 }
 
 h2 {
-    margin-bottom: 20px;
-    font-size: 27px;
-    line-height: 135%;
-    font-weight: 700;
+    --coef: 2.7;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
 }
 
 h3 {
-    margin-top: 30px;
-    margin-bottom: 20px;
-    font-size: 21px;
-    line-height: 30px;
-    font-weight: 700;
+    --coef: 2.2;
+    padding-top: 30px;
+    padding-bottom: 20px;
 }
 
 h4 {
-    margin-top: 20px;
-    margin-bottom: 15px;
-    font-size: 18px;
-    line-height: 22px;
-    font-weight: 700;
+    --coef: 1.7;
+    padding-top: 20px;
+    padding-bottom: 15px;
+}
+
+body, section, header, main, footer {
+    container-type: inline-size;
 }
 
 p {
-    margin-top: 0px;
-    margin-bottom: 20px;
+    padding-bottom: 20px;
     font-weight: 300;
 }
 
 a {
-    color: var(--color-link);
+    color: var(--link);
     text-decoration: none;
 }
 
 button {
-    font-family: var(--font-text);
+    font-family: var(--font-text), system-ui;
 }
 
 ul {
-    margin-top: 0px;
-    margin-bottom: 20px;
+    padding-bottom: 20px;
     padding-left: 40px;
 }
 
 ol {
-    margin-top: 0px;
-    margin-bottom: 10px;
+    padding-bottom: 10px;
     padding-left: 40px;
 }
 
@@ -116,8 +122,13 @@ img {
 blockquote {
     margin-bottom: 20px;
     padding: 10px 20px;
-    border-left: 5px solid var(--color);
+    border-left: 5px solid var(--text);
+    border-radius: var(--size-s);
     font-size: 18px;
     line-height: 140%;
     font-weight: 400;
+}
+
+del {
+    color: var(--text-darker);
 }

@@ -1,17 +1,18 @@
 <script lang="ts">
-    import SocialLink, { names } from '$atoms/SocialLink.svelte'
+  import SocialLink from '$atoms/SocialLink.svelte'
 </script>
 
 <section>
-    {#each names as name}
-        <SocialLink {name} />
-    {/each}
+  <SocialLink name="mastodon"/>
+  <SocialLink name="github"/>
+  <SocialLink name="pixelfed"/>
+  <SocialLink name="rss"/>
 </section>
 
 <style>
-    section {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-    }
+  section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
 </style>
