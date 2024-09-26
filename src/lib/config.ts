@@ -1,6 +1,7 @@
 import {base} from '$app/paths'
 
 export default {
+  url: 'https://lawondyss.cz',
   posts: {
     homepage: 3,
     perPage: 7,
@@ -18,5 +19,6 @@ export default {
     contact: `${base}/contact`,
     blog: `${base}/blog`,
     tags: `${base}/blog/tags`,
+    rss: `${base}/rss`,
   }
 }

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import config from '$config'
   import Icon from '$atoms/Icon.svelte'
 
   type Props = {
@@ -13,7 +14,7 @@
     mastodon: 'https://mastodonczech.cz/@Lawondyss',
     github: 'https://github.com/lawondyss',
     pixelfed: 'https://pixelfed.cz/Lawondyss',
-    rss: 'https://lawondyss.cz/rss',
+    rss: config.routes.rss,
   }
 
   let url = $derived(socials[name])
