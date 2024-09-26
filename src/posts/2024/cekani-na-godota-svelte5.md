@@ -1,7 +1,7 @@
 ---
 title: Čekání na <del>Godota</del> Svelte5
 perex: Je tomu už rok, co bylo představeno Svelte5 a jeho runy. Aktuálně je u release candidate 259 a pořád se zdá, že tomu není konec.
-date: 2024-09-25
+date: 2024-09-26
 tags:
   - svelte
   - svelte5

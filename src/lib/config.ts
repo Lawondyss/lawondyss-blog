@@ -19,6 +19,6 @@ export default {
     contact: `${base}/contact`,
     blog: `${base}/blog`,
     tags: `${base}/blog/tags`,
-    rss: `${base}/rss`,
+    rss: `${base}/rss.xml`,
   }
 }
