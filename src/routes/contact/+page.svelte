@@ -40,7 +40,7 @@
   <h2>
     <Icon name="ico" height="var(--size-l)" />IČO
   </h2>
-  <a href="https://www.rzp.cz/cgi-bin/aps_cacheWEB.sh?VSS_SERV=ZVWSBJFND&Action=Search&ICO=88824284&VYPIS=2"
+  <a href="https://www.rzp.cz/verejne-udaje/cs/udaje/vyber-subjektu;ico=88824284;roleSubjektu=P/subjekt;ssarzp=A39ac1ec43c7f1f02a22d8cd83a5ee2488a0bee773d009368204e27f9612afdae1900"
      target="_blank">88824284</a>
   <p>Jako správný freelancer mám i své identifikační číslo&nbsp;📇</p>
 </section>
@@ -49,7 +49,7 @@
   <h2>
     <Icon name="datovka" height="var(--size-l)" />Datovka
   </h2>
-  <a href="https://info.mojedatovaschranka.cz/info/cs/search.html?q=bf3m2fe"
+  <a href="https://info.mojedatovaschranka.cz/info/cs/"
      target="_blank">bf3m2fe</a>
   <p>Datová schránka nesmí chybět&nbsp;🗳️</p>
 </section>
