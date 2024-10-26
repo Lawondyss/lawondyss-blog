@@ -2,7 +2,7 @@
   import type {Snippet} from 'svelte'
   import config from '$config'
   import Navigate from '$molecules/Navigate.svelte'
-  import SocialLinks from '$molecules/SocialLinks.svelte'
+  import IconLinks from '$molecules/IconLinks.svelte'
   import ToTopButton from '$atoms/ToTopButton.svelte'
 
   type Props = {
@@ -23,7 +23,7 @@
   </main>
 
   <footer>
-    <SocialLinks/>
+    <IconLinks/>
     <ToTopButton/>
   </footer>
 </section>

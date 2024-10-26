@@ -3,18 +3,14 @@
   import Icon from '$atoms/Icon.svelte'
 
   type Props = {
-    name: Name,
+    name: 'rss' | 'mastodon' | 'github' | 'pixelfed',
   }
-
-  type Name = 'mastodon' | 'github' | 'pixelfed' | 'rss'
 
   let {name}: Props = $props()
 
-  const socials: Record<Name, string> = {
-    mastodon: 'https://mastodonczech.cz/@Lawondyss',
-    github: 'https://github.com/lawondyss',
-    pixelfed: 'https://pixelfed.cz/Lawondyss',
+  const socials = {
     rss: config.routes.rss,
+    ...config.links,
   }
 
   let url = $derived(socials[name])
