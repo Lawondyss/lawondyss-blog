@@ -47,3 +47,8 @@ export function tagUrl(tag: string): string {
 export function postUrl(year: string, slug: string): string {
   return `${config.routes.blog}/${year}/${slug}`
 }
+
+
+export function htmlStrip(str: string): string {
+  return str.replaceAll(/<[^>]+>/g, '')
+}

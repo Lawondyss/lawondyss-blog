@@ -3,6 +3,7 @@ export const prerender = true
 import type {RequestHandler} from '@sveltejs/kit'
 import type {Post} from '$types'
 import config from '$config'
+import {htmlStrip} from '$utils'
 import {getPosts} from '$data'
 
 class Atom {
@@ -60,7 +61,7 @@ class Atom {
   }
 
   private postTitle(post: Post): string {
-    return `<title>${this.htmlStrip(post.title)}</title>`
+    return `<title>${htmlStrip(post.title)}</title>`
   }
 
   private postLink(post: Post): string {
@@ -72,15 +73,11 @@ class Atom {
   }
 
   private summary(post: Post): string {
-    return `<summary type="html"><![CDATA[ ${this.htmlStrip(post.perex)} ]]></summary>`
+    return `<summary type="html"><![CDATA[ ${htmlStrip(post.perex)} ]]></summary>`
   }
 
   private content(post: Post): string {
     return post.titleImage ? `<content type="image/jpeg" src="${config.url}${post.titleImage}" />` : ''
-  }
-
-  private htmlStrip(s: string): string {
-    return s.replaceAll(/<[^>]+>/g, '')
   }
 }
 

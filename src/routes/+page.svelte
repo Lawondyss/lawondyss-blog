@@ -1,11 +1,14 @@
 <script lang="ts">
   import type {PageData} from './$types'
   import config from '$config'
+  import page from '$page'
   import MeIntro from '$composites/MeIntro.svelte'
   import Posts from '$composites/Posts.svelte'
   import LinkButton from '$atoms/LinkButton.svelte'
 
   let {data}: { data: PageData } = $props()
+
+  page.set()
 </script>
 
 <section class="intro">

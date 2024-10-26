@@ -1,10 +1,12 @@
 <script lang="ts">
   import type {Snippet} from 'svelte'
   import type {Link} from '$types'
+  import page from '$page'
   import {dateFormat} from '$utils'
   import Tags from '$molecules/Tags.svelte'
   import FooterLinks from '$molecules/FooterLinks.svelte'
   import Image from "$atoms/Image.svelte";
+  import config from "$config";
 
   type Props = {
     children: Snippet,
@@ -29,19 +31,9 @@
     before,
     after,
   }: Props = $props()
-  console.log({
-    children,
-    title,
-    perex,
-    date,
-    tags,
-    url,
-    titleImage,
-    before,
-    after,
-  })
-</script>
 
+  page.set({url, title, description: perex, image: titleImage ?? config.image, isPost: true})
+</script>
 
 <article>
   <header>

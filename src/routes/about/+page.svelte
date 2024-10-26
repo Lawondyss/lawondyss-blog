@@ -1,5 +1,8 @@
 <script lang="ts">
+  import page from '$page'
   import MeIntro from '$composites/MeIntro.svelte'
+
+  page.set({title: 'Něco o mně'})
 </script>
 
 <h1>Něco o mně</h1>

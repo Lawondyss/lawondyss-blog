@@ -13,7 +13,7 @@ export const load = (async () => {
 
   const metas = posts.slice(start, end)
   const olderLink = hasIndex(end, posts)
-    ? {url: url(2), label: config.labels.oldesPosts}
+    ? {url: url(2), label: config.labels.olderPosts}
     : null
   const newestLink = null
 

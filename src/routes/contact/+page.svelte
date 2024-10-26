@@ -1,5 +1,8 @@
 <script lang="ts">
   import Icon from '$atoms/Icon.svelte'
+  import page from '$page'
+
+  page.set({title: 'Kontakty na mě'})
 </script>
 
 <h1>Kontakty na mě</h1>

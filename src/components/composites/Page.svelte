@@ -1,6 +1,7 @@
 <script lang="ts">
   import type {Snippet} from 'svelte'
   import config from '$config'
+  import SiteHead from '$atoms/SiteHead.svelte'
   import Navigate from '$molecules/Navigate.svelte'
   import IconLinks from '$molecules/IconLinks.svelte'
   import ToTopButton from '$atoms/ToTopButton.svelte'
@@ -11,6 +12,8 @@
 
   let {children}: Props = $props()
 </script>
+
+<SiteHead/>
 
 <section>
   <header>

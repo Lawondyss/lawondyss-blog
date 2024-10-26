@@ -1,12 +1,15 @@
 <script lang="ts">
   import {page} from '$app/stores'
+  import pageState from '$page'
+
+  pageState.set()
 
   type PageError = { emoji: string, message: string }
 
   const errors: Record<number, PageError> = {
     0: {
       emoji: '🙄',
-      message: 'Co to sakra! No tak tohle definitivně nefunguje.',
+      message: 'Proklatě! No tak tohle definitivně nefunguje.',
     },
     404: {
       emoji: '🙈',

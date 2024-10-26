@@ -22,6 +22,7 @@ const config = {
     },
     alias: {
       '$config': 'src/lib/config.ts',
+      '$page': 'src/lib/page.svelte.ts',
       '$types': 'src/lib/types.ts',
       '$data': 'src/lib/data.ts',
       '$utils': 'src/lib/utils.ts',
