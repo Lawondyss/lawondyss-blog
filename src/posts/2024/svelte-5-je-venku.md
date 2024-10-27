@@ -70,7 +70,7 @@ novou hodnotu znova přiřadit do proměnné, zvládá pětka přímou změnu.
 ```js
 // Svelte 4
 let numbers = [1, 2, 3]
-let config = { widht: 320, height: 240, color: darkblue }
+let config = { width: 320, height: 240, color: darkblue }
 
 function addNumber(num) {
   numbers = [...numbers, num]
