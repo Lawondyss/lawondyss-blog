@@ -19,7 +19,8 @@
   <h2>
     <Icon name="whatsApp" height="var(--size-l)"/> WhatsApp
   </h2>
-  <a href="https://wa.me/420608449000" target="_blank">Láďa Vondráček</a>
+  <a href="https://wa.me/420608449000"
+     target="_blank">Láďa Vondráček</a>
   <p>Psaná a pro mě ideální forma rychlé komunikace&nbsp;🤗</p>
 </section>
 
@@ -27,7 +28,8 @@
   <h2>
     <Icon name="signal" height="var(--size-m)"/> Signal
   </h2>
-  <a href="https://signal.me/#eu/275iesodtqXqaz879oHdJg44_1C0TBz1W44E5N5AztbDEX9EoIdPD7QI_9MgptQn" target="_blank">Lawondyss.42</a>
+  <a href="https://signal.me/#eu/275iesodtqXqaz879oHdJg44_1C0TBz1W44E5N5AztbDEX9EoIdPD7QI_9MgptQn"
+     target="_blank">Lawondyss.42</a>
   <p>Pokud dáváte přednost bezpečnější komunikaci&nbsp;🥸</p>
 </section>
 
@@ -43,7 +45,7 @@
   <h2>
     <Icon name="ico" height="var(--size-l)" />IČO
   </h2>
-  <a href="https://www.rzp.cz/verejne-udaje/cs/udaje/vyber-subjektu;ico=88824284;roleSubjektu=P/subjekt;ssarzp=A39ac1ec43c7f1f02a22d8cd83a5ee2488a0bee773d009368204e27f9612afdae1900"
+  <a href="https://www.rzp.cz/verejne-udaje/cs/udaje/vyber-subjektu;ico=88824284;roleSubjektu=P"
      target="_blank">88824284</a>
   <p>Jako správný freelancer mám i své identifikační číslo&nbsp;📇</p>
 </section>
@@ -52,7 +54,7 @@
   <h2>
     <Icon name="datovka" height="var(--size-l)" />Datovka
   </h2>
-  <a href="https://info.mojedatovaschranka.cz/info/cs/"
+  <a href="https://www.mojedatovaschranka.cz/sds/detail?dbid=bf3m2fe"
      target="_blank">bf3m2fe</a>
   <p>Datová schránka nesmí chybět&nbsp;🗳️</p>
 </section>
