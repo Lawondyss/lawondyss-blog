@@ -38,7 +38,7 @@
     padding: var(--size-l) var(--size-s);
     display: flex;
     flex-direction: column;
-    gap: var(--size-l);
+    gap: var(--size-xl);
     background-color: var(--background);
   }
 
