@@ -15,7 +15,7 @@ tomu je kód rychlejší a menší v porovnání s&nbsp;frameworky React, nebo V
 Jako kompilátor umožňuje Svelte pracovat v&nbsp;podstatě s libovolnou syntaxí. Lze vytvořit vlastní nebo rozšířit
 stávající. Proto Svelte komponenty vypadají jako HTML soubory. Mají `<script>` tag pro JavaScript, `<style>` tag, kam se
 zapisuje CSS a vše ostatní je HTML.
-```html
+```svelte
 <script>
     function joke() {
         alert('Lidi lze rozdělit do 10 typů. Ti co znají binární soustavu a ti co ji neznají.')

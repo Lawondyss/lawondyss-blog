@@ -15,7 +15,7 @@ Při vývoji aplikací je často potřeba sdílet stav mezi různými komponenta
 modálního okna. Častým řešením bylo tyto stavy předávat přes props skrz celou hierarchii komponent (tzv. Prop
 Drilling):
 
-```html
+```svelte
 <A>
     <B {modal}>
         <C {modal}>
@@ -38,7 +38,7 @@ export const modalState = $state({
 ```
 
 #### Modal.svelte
-```html
+```svelte
 <script>
     import { modalState } from './modal-state.svelte'
 
@@ -59,7 +59,7 @@ export const modalState = $state({
 ```
 
 #### D.svelte
-```html
+```svelte
 <script>
     import { modalState } from './modal-state.svelte'
     
@@ -110,7 +110,7 @@ Funkce `initModal()` je volána v místě, kde je komponenta Modal vykreslena. N
 Tím je buď App.svelte nebo +layout.svelte při použití SvelteKit.
 
 Funkce `getModalProps()` je určena pro komponentu Modal, které předává `content` jako reaktivní proměnnou.
-```html
+```svelte
 <script>
     import { getModalProps } from './modal-context.svelte'
 
@@ -133,7 +133,7 @@ Funkce `getModalProps()` je určena pro komponentu Modal, které předává `con
 
 Otevření modalu je díky funkci `getModal()` jednoduché a intuitivní a lze ho pohodlně ovládat odkudkoliv.
 
-```html
+```svelte
 <script>
     import { getModal } from './modal-props.svelte'
 
