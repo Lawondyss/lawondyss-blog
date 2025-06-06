@@ -1,15 +1,27 @@
-import type {File, Post} from '$types'
+import type {Post} from '$types'
 import {postUrl, webalized} from '$utils'
+import { marked } from 'marked';
+
+// Redefine File type locally as it's extended with htmlContent
+// and the global one is used in other places without this property.
+// Alternatively, we could create a new type, e.g. MarkdownFile.
+type File = Omit<Post, 'titleImage' | 'url' | 'before' | 'after' | 'htmlContent'> & {
+  year: string;
+  slug: string;
+  htmlContent: string; // Add htmlContent here
+};
 
 const markdowns: File[] = []
 
 function getMarkdowns(): File[] {
   if (markdowns.length === 0) {
-    const paths = import.meta.glob('/src/posts/*/*.md', {eager: true})
+    const metadataPaths = import.meta.glob('/src/posts/*/*.md', {eager: true})
+    const rawContentPaths = import.meta.glob('/src/posts/*/*.md', {as: 'raw', eager: true})
 
-    for (const path in paths) {
-      // @ts-ignore because paths[path] is import module
-      const meta = paths[path].metadata as Omit<Post, 'titleImage' | 'url' | 'before' | 'after'>
+    for (const path in metadataPaths) {
+      // @ts-ignore because metadataPaths[path] is import module
+      const meta = metadataPaths[path].metadata as Omit<Post, 'titleImage' | 'url' | 'before' | 'after' | 'htmlContent'>
+      const rawMarkdownContent = rawContentPaths[path]
       const [year, slug] = path.replace('.md', '').split('/').slice(-2)
 
       markdowns.push({
@@ -17,6 +29,7 @@ function getMarkdowns(): File[] {
         date: meta.date.substring(0, 10),
         year,
         slug,
+        htmlContent: marked(rawMarkdownContent),
       })
     }
   }
@@ -53,6 +66,7 @@ async function fileAsPost(file: File): Promise<Post> {
     date: file.date,
     tags: file.tags ?? [],
     url: postUrl(file.year, file.slug),
+    htmlContent: file.htmlContent, // Map htmlContent
     before: null,
     after: null,
   }

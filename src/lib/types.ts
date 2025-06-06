@@ -12,13 +12,5 @@ export type Post = {
   titleImage: string | null
   before: Link | null
   after: Link | null
-}
-
-export type File = {
-  title: string
-  perex: string
-  date: string
-  tags: string[]
-  year: string
-  slug: string
+  htmlContent: string;
 }

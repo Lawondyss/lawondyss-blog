@@ -77,7 +77,7 @@ class Atom {
   }
 
   private content(post: Post): string {
-    return post.titleImage ? `<content type="image/jpeg" src="${config.url}${post.titleImage}" />` : ''
+    return `<content type="html"><![CDATA[${post.htmlContent}]]></content>`;
   }
 }
 
